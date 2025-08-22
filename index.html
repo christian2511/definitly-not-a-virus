@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confetti Reminder</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #9333ea, #ec4899);
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      font-family: system-ui, sans-serif;
+    }
+
+    #message {
+      font-size: 2em;
+      font-weight: bold;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      z-index: 10;
+    }
+
+    #sub {
+      font-size: 1.2em;
+      opacity: 0.9;
+      margin-top: 10px;
+    }
+
+    #replay {
+      margin-top: 20px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 999px;
+      background: white;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    #replay:active {
+      transform: scale(0.96);
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div id="message">🎉 TAKE YOUR DRUGS GIRLY POP!! 🎉</div>
+    <div id="sub">please....</div>
+    <button id="replay">Replay Confetti</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    function launchConfetti(duration = 2500) {
+      const end = Date.now() + duration;
+      (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    // Launch when page loads
+    window.addEventListener('load', () => {
+      launchConfetti();
+      if (navigator.vibrate) navigator.vibrate(120);
+    });
+
+    // Replay button
+    document.getElementById('replay').addEventListener('click', () => {
+      launchConfetti(1800);
+    });
+  </script>
+</body>
+</html>
